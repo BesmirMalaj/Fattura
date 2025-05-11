@@ -9,7 +9,8 @@
 </head>
 
 <body>
-    <div class="fattura-container">
+    <!-- Versione normale della fattura (visibile solo su schermo) -->
+    <div class="fattura-container screen-only">
         <!-- Intestazione Azienda -->
         <div class="intestazione-fattura">
             <div class="logo-azienda">
@@ -24,8 +25,8 @@
             </div>
             <div class="numero-fattura">
                 <h2>FATTURA</h2>
-                <p>N° 2023/001</p>
-                <p>Data: 11/05/2025</p>
+                <p id="numero-fattura-id">N° 2023/001</p>
+                <p id="data-fattura-id">Data: 11/05/2025</p>
             </div>
         </div>
 
@@ -80,6 +81,59 @@
         <div class="azioni-fattura">
             <a href="index.html" class="btn-torna">🔙 Torna alla home</a>
             <button onclick="stampaFattura()" class="btn-stampa">🖨️ Stampa Fattura</button>
+        </div>
+    </div>
+
+    <!-- Versione stampabile della fattura (visibile solo in stampa) -->
+    <div class="fattura-print-container print-only">
+        <div class="intestazione-print">
+            <h1>Nome Azienda S.R.L.</h1>
+            <p>Via Roma, 123 - 00100 Città (RM) - P.IVA: IT12345678901</p>
+            <div class="intestazione-print-right">
+                <h2>FATTURA</h2>
+                <p id="numero-fattura-print">N° 2023/001</p>
+                <p id="data-fattura-print">Data: 11/05/2025</p>
+            </div>
+        </div>
+
+        <div class="cliente-print">
+            <p><strong>Cliente:</strong> Nome Cliente</p>
+            <p>Via Cliente, 456 - 00100 Città (RM)</p>
+            <p>P.IVA/C.F.: IT09876543210</p>
+        </div>
+
+        <table class="tabella-print">
+            <thead>
+                <tr>
+                    <th class="col-desc">Descrizione</th>
+                    <th class="col-prezzo">Prezzo Unitario</th>
+                    <th class="col-qta">Quantità</th>
+                    <th class="col-tot">Totale</th>
+                </tr>
+            </thead>
+            <tbody id="tabella-print-body">
+                <!-- I prodotti verranno inseriti qui dinamicamente -->
+            </tbody>
+        </table>
+
+        <div class="totali-print">
+            <div class="totale-print-row">
+                <span>Imponibile:</span>
+                <span id="imponibile-print">0.00 €</span>
+            </div>
+            <div class="totale-print-row">
+                <span>IVA (22%):</span>
+                <span id="iva-print">0.00 €</span>
+            </div>
+            <div class="totale-print-row totale-finale-print">
+                <span>Totale Fattura:</span>
+                <span id="totale-print">0.00 €</span>
+            </div>
+        </div>
+
+        <div class="note-print">
+            <p><strong>Pagamento:</strong> Bonifico Bancario - IBAN: IT60X0542811101000000123456</p>
+            <p><strong>Scadenza:</strong> 30 giorni dalla data di emissione</p>
         </div>
     </div>
 

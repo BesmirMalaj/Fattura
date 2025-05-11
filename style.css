@@ -638,6 +638,136 @@ a:hover {
   background-color: #3d8b40;
 }
 
+/* Classi per gestire la visualizzazione in stampa */
+.print-only {
+  display: none;
+}
+
+.screen-only {
+  display: block;
+}
+
+/* Stile per la versione stampabile */
+.fattura-print-container {
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  color: #000;
+}
+
+.intestazione-print {
+  position: relative;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.intestazione-print h1 {
+  font-size: 20px;
+  margin: 0 0 5px 0;
+}
+
+.intestazione-print p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.intestazione-print-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: right;
+}
+
+.intestazione-print-right h2 {
+  font-size: 18px;
+  margin: 0 0 5px 0;
+}
+
+.intestazione-print-right p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.cliente-print {
+  margin-bottom: 30px;
+}
+
+.cliente-print p {
+  margin: 2px 0;
+  font-size: 14px;
+}
+
+/* Tabella principale per la stampa */
+.tabella-print {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.tabella-print th {
+  background-color: #2a3d66;
+  color: white;
+  text-align: left;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.tabella-print td {
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.tabella-print tr:nth-child(even) td {
+  background-color: #f9f9f9;
+}
+
+/* Larghezze colonne */
+.col-desc {
+  width: 40%;
+}
+
+.col-prezzo, .col-qta {
+  width: 20%;
+}
+
+.col-tot {
+  width: 20%;
+}
+
+/* Totali */
+.totali-print {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.totale-print-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-size: 14px;
+}
+
+.totale-finale-print {
+  font-weight: bold;
+  font-size: 16px;
+  padding-top: 5px;
+  border-top: 1px solid #ddd;
+}
+
+.note-print {
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid #ddd;
+  font-size: 12px;
+}
+
+.note-print p {
+  margin: 5px 0;
+}
+
 /* Media query per la stampa */
 @media print {
   body {
@@ -646,41 +776,27 @@ a:hover {
     padding: 0;
   }
   
-  .fattura-container {
-    box-shadow: none;
-    max-width: 100%;
-    padding: 10mm;
+  .print-only {
+    display: block;
   }
   
-  .azioni-fattura,
-  .fattura-azioni button {
+  .screen-only {
     display: none;
   }
   
-  .intestazione-fattura,
-  .dati-cliente,
-  .contenuto-fattura,
-  .note-fattura {
-    page-break-inside: avoid;
-  }
-  
-  .intestazione-tabella {
-    background-color: #eee !important;
-    color: black !important;
+  .tabella-print th {
+    background-color: #2a3d66 !important;
+    color: white !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+    color-adjust: exact;
   }
   
-  .fattura-item:nth-child(even) {
+  .tabella-print tr:nth-child(even) td {
     background-color: #f9f9f9 !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
-  }
-  
-  .totale-finale {
-    background-color: #f9f9f9 !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+    color-adjust: exact;
   }
 }
 

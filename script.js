@@ -191,19 +191,35 @@ function caricaFattura() {
     const imponibileSpan = document.getElementById('imponibile-fattura');
     const ivaSpan = document.getElementById('iva-fattura');
     
-    lista.innerHTML = '';
+    // Elementi per la versione stampabile
+    const tabellaPrintBody = document.getElementById('tabella-print-body');
+    const totalePrintSpan = document.getElementById('totale-print');
+    const imponibilePrintSpan = document.getElementById('imponibile-print');
+    const ivaPrintSpan = document.getElementById('iva-print');
+    
+    // Pulisci le liste
+    if (lista) lista.innerHTML = '';
+    if (tabellaPrintBody) tabellaPrintBody.innerHTML = '';
+    
     let totale = 0;
 
     if (carrello.length === 0) {
-        const riga = document.createElement('div');
-        riga.className = 'fattura-item fattura-vuota';
-        riga.innerHTML = '<p>Nessun prodotto nel carrello</p>';
-        lista.appendChild(riga);
+        // Versione visualizzazione schermo
+        if (lista) {
+            const riga = document.createElement('div');
+            riga.className = 'fattura-item fattura-vuota';
+            riga.innerHTML = '<p>Nessun prodotto nel carrello</p>';
+            lista.appendChild(riga);
+        }
+        
+        // Versione stampabile
+        if (tabellaPrintBody) {
+            const rigaStampa = document.createElement('tr');
+            rigaStampa.innerHTML = '<td colspan="4" style="text-align: center;">Nessun prodotto nel carrello</td>';
+            tabellaPrintBody.appendChild(rigaStampa);
+        }
     } else {
         carrello.forEach((item, index) => {
-            const riga = document.createElement('div');
-            riga.className = 'fattura-item';
-
             // Verifica che il prezzo e la quantità siano numerici e validi
             const prezzoSingolo = parseFloat(item.prezzo) || 0;
             const quantita = parseInt(item.quantita) || 1;
@@ -211,26 +227,43 @@ function caricaFattura() {
 
             totale += prezzoTotale;
 
-            // Aggiungi l'elemento nella lista della fattura
-            riga.innerHTML = `
-                <div class="fattura-descrizione">${item.nome}</div>
-                <div class="fattura-prezzo">${prezzoSingolo.toFixed(2)} €</div>
-                <div class="fattura-quantita">
-                    <input type="number" value="${quantita}" min="1" class="quantita" data-index="${index}" />
-                </div>
-                <div class="fattura-totale">${prezzoTotale.toFixed(2)} €</div>
-                <div class="fattura-azioni">
-                    <button onclick="rimuoviDaFattura(${index})">🗑️</button>
-                </div>
-            `;
+            // Versione visualizzazione schermo
+            if (lista) {
+                const riga = document.createElement('div');
+                riga.className = 'fattura-item';
+                riga.innerHTML = `
+                    <div class="fattura-descrizione">${item.nome}</div>
+                    <div class="fattura-prezzo">${prezzoSingolo.toFixed(2)} €</div>
+                    <div class="fattura-quantita">
+                        <input type="number" value="${quantita}" min="1" class="quantita" data-index="${index}" />
+                    </div>
+                    <div class="fattura-totale">${prezzoTotale.toFixed(2)} €</div>
+                    <div class="fattura-azioni">
+                        <button onclick="rimuoviDaFattura(${index})">🗑️</button>
+                    </div>
+                `;
+                lista.appendChild(riga);
 
-            lista.appendChild(riga);
-
-            // Aggiungi un event listener per gestire il cambiamento della quantità
-            const inputQuantita = riga.querySelector('.quantita');
-            inputQuantita.addEventListener('change', (event) => {
-                aggiornaQuantita(index, event.target.value);
-            });
+                // Aggiungi un event listener per gestire il cambiamento della quantità
+                const inputQuantita = riga.querySelector('.quantita');
+                if (inputQuantita) {
+                    inputQuantita.addEventListener('change', (event) => {
+                        aggiornaQuantita(index, event.target.value);
+                    });
+                }
+            }
+            
+            // Versione stampabile
+            if (tabellaPrintBody) {
+                const rigaStampa = document.createElement('tr');
+                rigaStampa.innerHTML = `
+                    <td>${item.nome}</td>
+                    <td>${prezzoSingolo.toFixed(2)} €</td>
+                    <td>${quantita}</td>
+                    <td>${prezzoTotale.toFixed(2)} €</td>
+                `;
+                tabellaPrintBody.appendChild(rigaStampa);
+            }
         });
     }
 
@@ -238,10 +271,15 @@ function caricaFattura() {
     const imponibile = totale / 1.22; // supponendo IVA al 22%
     const iva = totale - imponibile;
     
-    // Aggiorna i vari totali
+    // Aggiorna i vari totali - versione schermo
     if (imponibileSpan) imponibileSpan.textContent = imponibile.toFixed(2) + ' €';
     if (ivaSpan) ivaSpan.textContent = iva.toFixed(2) + ' €';
     if (totaleSpan) totaleSpan.textContent = totale.toFixed(2) + ' €';
+    
+    // Aggiorna i vari totali - versione stampa
+    if (imponibilePrintSpan) imponibilePrintSpan.textContent = imponibile.toFixed(2) + ' €';
+    if (ivaPrintSpan) ivaPrintSpan.textContent = iva.toFixed(2) + ' €';
+    if (totalePrintSpan) totalePrintSpan.textContent = totale.toFixed(2) + ' €';
 }
 
 function aggiornaQuantita(index, nuovaQuantita) {
