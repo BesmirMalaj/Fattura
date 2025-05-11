@@ -33,10 +33,10 @@
         <!-- Dati Cliente -->
         <div class="dati-cliente">
             <h3>Cliente:</h3>
-            <p>Nome Cliente</p>
-            <p>Via Cliente, 456</p>
-            <p>00100 Città (RM)</p>
-            <p>P.IVA/C.F.: IT09876543210</p>
+            <input type="text" id="cliente-nome" value="Nome Cliente"><br>
+            <input type="text" id="cliente-indirizzo" value="Via Cliente, 456"><br>
+            <input type="text" id="cliente-citta" value="00100 Città (RM)"><br>
+            <input type="text" id="cliente-piva" value="P.IVA/C.F.: IT09876543210"><br>
         </div>
 
         <!-- Contenuto Fattura -->
@@ -48,11 +48,11 @@
                 <div class="col-totale">Totale</div>
                 <div class="col-azioni">Azioni</div>
             </div>
-            
+
             <div id="lista-fattura">
                 <!-- Gli elementi della fattura verranno inseriti qui dinamicamente -->
             </div>
-            
+
             <div class="riepilogo-totali">
                 <div class="totale-item">
                     <span>Imponibile:</span>
@@ -97,9 +97,7 @@
         </div>
 
         <div class="cliente-print">
-            <p><strong>Cliente:</strong> Nome Cliente</p>
-            <p>Via Cliente, 456 - 00100 Città (RM)</p>
-            <p>P.IVA/C.F.: IT09876543210</p>
+            <div id="output-cliente" class="output-print"></div>
         </div>
 
         <table class="tabella-print">

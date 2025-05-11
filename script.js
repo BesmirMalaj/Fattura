@@ -173,7 +173,20 @@ function rimuoviDalCarrello(index) {
     mostraCarrello();
 }
 
+function svuotaCarrello() {
+    // Rimuovi il contenuto del carrello in localStorage (se stai usando localStorage)
+    localStorage.removeItem("carrello");  // o se usi un array: localStorage.setItem("carrello", JSON.stringify([]));
 
+    // Resetta il totale a 0.00
+    document.getElementById("totale-carrello").textContent = "0.00";
+
+    // Svuota la visualizzazione del carrello
+    const carrelloDiv = document.getElementById("carrello");
+    carrelloDiv.innerHTML = "";  // Rimuove tutti gli elementi visualizzati
+
+    // Facoltativo: Aggiungi un messaggio di conferma o reset
+    alert("Carrello svuotato!");
+}
 // Funzione di inizio per visualizzare i prodotti all'avvio della pagina
 
 // Salva un nuovo prodotto personalizzato in localStorage
@@ -181,6 +194,15 @@ function salvaProdottoPersonalizzato(nome, prezzo) {
     const prodotti = getProdottiDisponibili();
     prodotti.push({ nome, prezzo: parseFloat(prezzo) }); // ✅ forzatura del tipo
     localStorage.setItem('prodottiDisponibili', JSON.stringify(prodotti));
+}
+
+function getDatiCliente() {
+    return {
+        nome: document.getElementById('cliente-nome').value,
+        indirizzo: document.getElementById('cliente-indirizzo').value,
+        citta: document.getElementById('cliente-citta').value,
+        piva: document.getElementById('cliente-piva').value
+    };
 }
 
 //Fattura
@@ -307,20 +329,39 @@ function rimuoviDaFattura(index) {
 }
 
 function stampaFattura() {
-    // Aggiungi data e numero di fattura dinamici prima di stampare
+    // 📅 Genera data e numero fattura
     const oggi = new Date();
     const dataFormattata = oggi.toLocaleDateString('it-IT');
     const numeroFattura = '2023/' + Math.floor(Math.random() * 999).toString().padStart(3, '0');
-    
+
     const dataElemento = document.querySelector('.numero-fattura p:nth-child(2)');
     const numeroElemento = document.querySelector('.numero-fattura p:nth-child(3)');
-    
+
     if (dataElemento) dataElemento.textContent = 'N° ' + numeroFattura;
     if (numeroElemento) numeroElemento.textContent = 'Data: ' + dataFormattata;
-    
-    // Esegui la stampa
+
+    // 👤 Prendi i dati dal form cliente
+    const nome = document.getElementById("cliente-nome").value;
+    const indirizzo = document.getElementById("cliente-indirizzo").value;
+    const citta = document.getElementById("cliente-citta").value;
+    const piva = document.getElementById("cliente-piva").value;
+
+    // 📌 Inserisci i dati cliente nella sezione dedicata alla stampa
+    const outputCliente = document.getElementById("output-cliente");
+    if (outputCliente) {
+        outputCliente.innerHTML = `
+            <h3>Dati Cliente:</h3>
+            <p><strong>${nome}</strong></p>
+            <p>${indirizzo}</p>
+            <p>${citta}</p>
+            <p>${piva}</p>
+        `;
+    }
+
+    // 🖨 Avvia stampa
     window.print();
 }
+
 
 window.onload = function () {
     mostraProdottiDisponibili(); // Mostra i prodotti disponibili
