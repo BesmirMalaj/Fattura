@@ -390,3 +390,364 @@ a:hover {
     justify-content: space-between;
   }
 }
+/* Stile per la pagina fattura */
+
+.fattura-container {
+  max-width: 1000px;
+  margin: 20px auto;
+  background-color: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 30px;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+/* Intestazione fattura */
+.intestazione-fattura {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 2px solid #2a3d66;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.logo-azienda {
+  flex: 1;
+}
+
+.logo-placeholder {
+  width: 120px;
+  height: 80px;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px dashed #ccc;
+  font-weight: bold;
+  color: #888;
+}
+
+.dati-azienda {
+  flex: 2;
+  text-align: center;
+}
+
+.dati-azienda h1 {
+  color: #2a3d66;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.dati-azienda p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.numero-fattura {
+  flex: 1;
+  text-align: right;
+}
+
+.numero-fattura h2 {
+  color: #2a3d66;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.numero-fattura p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+/* Dati cliente */
+.dati-cliente {
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 30px;
+  border-radius: 5px;
+  border-left: 4px solid #2a3d66;
+}
+
+.dati-cliente h3 {
+  margin-top: 0;
+  color: #2a3d66;
+  font-size: 16px;
+}
+
+.dati-cliente p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+/* Contenuto della fattura */
+.contenuto-fattura {
+  margin-bottom: 30px;
+}
+
+.intestazione-tabella {
+  display: flex;
+  background-color: #2a3d66;
+  color: white;
+  padding: 12px 15px;
+  border-radius: 5px 5px 0 0;
+  font-weight: bold;
+}
+
+.col-descrizione {
+  flex: 3;
+}
+
+.col-prezzo, .col-quantita, .col-totale {
+  flex: 1;
+  text-align: center;
+}
+
+.col-azioni {
+  flex: 0.5;
+  text-align: center;
+}
+
+/* Elemento fattura riprogettato */
+.fattura-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+}
+
+.fattura-item:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.fattura-item:last-child {
+  border-bottom: none;
+  border-radius: 0 0 5px 5px;
+}
+
+.fattura-descrizione {
+  flex: 3;
+  font-weight: bold;
+}
+
+.fattura-prezzo, .fattura-quantita, .fattura-totale {
+  flex: 1;
+  text-align: center;
+}
+
+.fattura-quantita input {
+  width: 60px;
+  padding: 5px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.fattura-totale {
+  font-weight: bold;
+  color: #2a3d66;
+}
+
+.fattura-azioni {
+  flex: 0.5;
+  text-align: center;
+}
+
+.fattura-azioni button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #d32f2f;
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+
+.fattura-azioni button:hover {
+  transform: scale(1.2);
+}
+
+/* Riepilogo totali */
+.riepilogo-totali {
+  margin-top: 20px;
+  border-top: 2px solid #eee;
+  padding-top: 20px;
+}
+
+.totale-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 15px;
+  font-size: 16px;
+}
+
+.totale-finale {
+  font-weight: bold;
+  font-size: 18px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 12px 15px;
+  color: #2a3d66;
+}
+
+/* Note e condizioni */
+.note-fattura {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.note-fattura h4 {
+  margin-top: 0;
+  color: #2a3d66;
+}
+
+/* Pulsanti azione */
+.azioni-fattura {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.btn-torna, .btn-stampa {
+  padding: 12px 20px;
+  background-color: #2a3d66;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 15px;
+}
+
+.btn-torna:hover, .btn-stampa:hover {
+  background-color: #1f2a44;
+}
+
+.btn-stampa {
+  background-color: #4CAF50;
+}
+
+.btn-stampa:hover {
+  background-color: #3d8b40;
+}
+
+/* Media query per la stampa */
+@media print {
+  body {
+    background-color: white;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .fattura-container {
+    box-shadow: none;
+    max-width: 100%;
+    padding: 10mm;
+  }
+  
+  .azioni-fattura,
+  .fattura-azioni button {
+    display: none;
+  }
+  
+  .intestazione-fattura,
+  .dati-cliente,
+  .contenuto-fattura,
+  .note-fattura {
+    page-break-inside: avoid;
+  }
+  
+  .intestazione-tabella {
+    background-color: #eee !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  .fattura-item:nth-child(even) {
+    background-color: #f9f9f9 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  .totale-finale {
+    background-color: #f9f9f9 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .intestazione-fattura {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .logo-azienda, .dati-azienda, .numero-fattura {
+    flex: none;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .logo-placeholder {
+    margin: 0 auto;
+  }
+  
+  .intestazione-tabella {
+    display: none;
+  }
+  
+  .fattura-item {
+    flex-direction: column;
+    padding: 15px;
+    border: 1px solid #eee;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .fattura-descrizione, .fattura-prezzo, .fattura-quantita, .fattura-totale, .fattura-azioni {
+    flex: none;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 8px;
+    padding: 0;
+  }
+  
+  .fattura-descrizione::before {
+    content: "Prodotto: ";
+    font-weight: normal;
+  }
+  
+  .fattura-prezzo::before {
+    content: "Prezzo: ";
+  }
+  
+  .fattura-quantita {
+    display: flex;
+    align-items: center;
+  }
+  
+  .fattura-quantita::before {
+    content: "Quantità: ";
+    margin-right: 10px;
+  }
+  
+  .fattura-totale::before {
+    content: "Totale: ";
+    font-weight: normal;
+  }
+  
+  .fattura-azioni {
+    text-align: right;
+  }
+}

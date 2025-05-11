@@ -188,61 +188,99 @@ function caricaFattura() {
     const carrello = JSON.parse(localStorage.getItem('carrello')) || [];
     const lista = document.getElementById('lista-fattura');
     const totaleSpan = document.getElementById('totale-fattura');
+    const imponibileSpan = document.getElementById('imponibile-fattura');
+    const ivaSpan = document.getElementById('iva-fattura');
+    
     lista.innerHTML = '';
     let totale = 0;
 
-    carrello.forEach((item, index) => {
+    if (carrello.length === 0) {
         const riga = document.createElement('div');
-        riga.className = 'carrello-item';
-
-        // Verifica che il prezzo e la quantità siano numerici e validi
-        const prezzoSingolo = parseFloat(item.prezzo) || 0;
-        const quantita = parseInt(item.quantita) || 1;
-        const prezzoTotale = prezzoSingolo * quantita;
-
-        totale += prezzoTotale;
-
-        // Aggiungi l'elemento nella lista della fattura
-        riga.innerHTML = `
-        <div class="printFattura">
-            
-            <span>${item.nome}  <-->  ${prezzoSingolo.toFixed(2)}€ x</span> 
-            <input type="number" value="${quantita}" min="1" class="quantita" data-index="${index}" />
-            = <strong>€${prezzoTotale.toFixed(2)}</strong>
-        </div>
-           <button onclick="rimuoviDaFattura(${index})">🗑️</button>
-          
-        `;
-
+        riga.className = 'fattura-item fattura-vuota';
+        riga.innerHTML = '<p>Nessun prodotto nel carrello</p>';
         lista.appendChild(riga);
+    } else {
+        carrello.forEach((item, index) => {
+            const riga = document.createElement('div');
+            riga.className = 'fattura-item';
 
-        // Aggiungi un event listener per gestire il cambiamento della quantità
-        const inputQuantita = riga.querySelector('.quantita');
-        inputQuantita.addEventListener('change', (event) => {
-            aggiornaQuantita(index, event.target.value);
+            // Verifica che il prezzo e la quantità siano numerici e validi
+            const prezzoSingolo = parseFloat(item.prezzo) || 0;
+            const quantita = parseInt(item.quantita) || 1;
+            const prezzoTotale = prezzoSingolo * quantita;
+
+            totale += prezzoTotale;
+
+            // Aggiungi l'elemento nella lista della fattura
+            riga.innerHTML = `
+                <div class="fattura-descrizione">${item.nome}</div>
+                <div class="fattura-prezzo">${prezzoSingolo.toFixed(2)} €</div>
+                <div class="fattura-quantita">
+                    <input type="number" value="${quantita}" min="1" class="quantita" data-index="${index}" />
+                </div>
+                <div class="fattura-totale">${prezzoTotale.toFixed(2)} €</div>
+                <div class="fattura-azioni">
+                    <button onclick="rimuoviDaFattura(${index})">🗑️</button>
+                </div>
+            `;
+
+            lista.appendChild(riga);
+
+            // Aggiungi un event listener per gestire il cambiamento della quantità
+            const inputQuantita = riga.querySelector('.quantita');
+            inputQuantita.addEventListener('change', (event) => {
+                aggiornaQuantita(index, event.target.value);
+            });
         });
-    });
+    }
 
-    totaleSpan.textContent = totale.toFixed(2);
+    // Calcola imponibile e IVA
+    const imponibile = totale / 1.22; // supponendo IVA al 22%
+    const iva = totale - imponibile;
+    
+    // Aggiorna i vari totali
+    if (imponibileSpan) imponibileSpan.textContent = imponibile.toFixed(2) + ' €';
+    if (ivaSpan) ivaSpan.textContent = iva.toFixed(2) + ' €';
+    if (totaleSpan) totaleSpan.textContent = totale.toFixed(2) + ' €';
 }
 
 function aggiornaQuantita(index, nuovaQuantita) {
     let carrello = JSON.parse(localStorage.getItem('carrello')) || [];
+    nuovaQuantita = parseInt(nuovaQuantita);
+    
     if (nuovaQuantita > 0) {
-        carrello[index].quantita = parseInt(nuovaQuantita);
+        carrello[index].quantita = nuovaQuantita;
         localStorage.setItem('carrello', JSON.stringify(carrello));
         caricaFattura(); // Ricarica la fattura dopo l'aggiornamento
+    } else {
+        // Se la quantità è 0 o negativa, imposta a 1
+        document.querySelectorAll('.quantita')[index].value = 1;
+        aggiornaQuantita(index, 1);
     }
 }
 
 function rimuoviDaFattura(index) {
-    let carrello = JSON.parse(localStorage.getItem('carrello')) || [];
-    carrello.splice(index, 1);
-    localStorage.setItem('carrello', JSON.stringify(carrello));
-    caricaFattura();
+    if (confirm('Sei sicuro di voler rimuovere questo prodotto dalla fattura?')) {
+        let carrello = JSON.parse(localStorage.getItem('carrello')) || [];
+        carrello.splice(index, 1);
+        localStorage.setItem('carrello', JSON.stringify(carrello));
+        caricaFattura();
+    }
 }
 
 function stampaFattura() {
+    // Aggiungi data e numero di fattura dinamici prima di stampare
+    const oggi = new Date();
+    const dataFormattata = oggi.toLocaleDateString('it-IT');
+    const numeroFattura = '2023/' + Math.floor(Math.random() * 999).toString().padStart(3, '0');
+    
+    const dataElemento = document.querySelector('.numero-fattura p:nth-child(2)');
+    const numeroElemento = document.querySelector('.numero-fattura p:nth-child(3)');
+    
+    if (dataElemento) dataElemento.textContent = 'N° ' + numeroFattura;
+    if (numeroElemento) numeroElemento.textContent = 'Data: ' + dataFormattata;
+    
+    // Esegui la stampa
     window.print();
 }
 

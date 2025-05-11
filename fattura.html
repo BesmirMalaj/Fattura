@@ -9,28 +9,79 @@
 </head>
 
 <body>
-    <!-- Intestazione Azienda (opzionale) -->
-    <div class="dati-azienda">
-        <h1>Nome Azienda S.R.L.</h1>
-        <p>Indirizzo: Via Roma, 123 - Città</p>
-        <p>P.IVA: 12345678901</p>
-    </div>
-
-    <h1>🧾 Fattura</h1>
-    <div class="azioni">
-        <a href="index.html">🔙 Torna alla home </a>
-    </div>
-    <div class="contenitore-main">
-        <div class="colonna">
-            <div id="lista-fattura"></div>
-            <p><strong>Totale:</strong> €<span id="totale-fattura">0.00</span></p>
-
-            <div class="azioni">
-                <button onclick="stampaFattura()">🖨️ Stampa</button>
+    <div class="fattura-container">
+        <!-- Intestazione Azienda -->
+        <div class="intestazione-fattura">
+            <div class="logo-azienda">
+                <!-- Placeholder per logo -->
+                <div class="logo-placeholder">LOGO</div>
+            </div>
+            <div class="dati-azienda">
+                <h1>Nome Azienda S.R.L.</h1>
+                <p>Via Roma, 123 - 00100 Città (RM)</p>
+                <p>P.IVA: IT12345678901 - Tel: 06 123456</p>
+                <p>Email: info@azienda.it - Web: www.azienda.it</p>
+            </div>
+            <div class="numero-fattura">
+                <h2>FATTURA</h2>
+                <p>N° 2023/001</p>
+                <p>Data: 11/05/2025</p>
             </div>
         </div>
+
+        <!-- Dati Cliente -->
+        <div class="dati-cliente">
+            <h3>Cliente:</h3>
+            <p>Nome Cliente</p>
+            <p>Via Cliente, 456</p>
+            <p>00100 Città (RM)</p>
+            <p>P.IVA/C.F.: IT09876543210</p>
+        </div>
+
+        <!-- Contenuto Fattura -->
+        <div class="contenuto-fattura">
+            <div class="intestazione-tabella">
+                <div class="col-descrizione">Descrizione</div>
+                <div class="col-prezzo">Prezzo Unitario</div>
+                <div class="col-quantita">Quantità</div>
+                <div class="col-totale">Totale</div>
+                <div class="col-azioni">Azioni</div>
+            </div>
+            
+            <div id="lista-fattura">
+                <!-- Gli elementi della fattura verranno inseriti qui dinamicamente -->
+            </div>
+            
+            <div class="riepilogo-totali">
+                <div class="totale-item">
+                    <span>Imponibile:</span>
+                    <span id="imponibile-fattura">0.00</span>
+                </div>
+                <div class="totale-item">
+                    <span>IVA (22%):</span>
+                    <span id="iva-fattura">0.00</span>
+                </div>
+                <div class="totale-item totale-finale">
+                    <span>Totale Fattura:</span>
+                    <span id="totale-fattura">0.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Note e Condizioni -->
+        <div class="note-fattura">
+            <h4>Note:</h4>
+            <p>Pagamento: Bonifico Bancario</p>
+            <p>IBAN: IT60X0542811101000000123456</p>
+            <p>Scadenza: 30 giorni dalla data di emissione</p>
+        </div>
+
+        <!-- Pulsanti Azione -->
+        <div class="azioni-fattura">
+            <a href="index.html" class="btn-torna">🔙 Torna alla home</a>
+            <button onclick="stampaFattura()" class="btn-stampa">🖨️ Stampa Fattura</button>
+        </div>
     </div>
-    
 
     <script src="script.js"></script>
     <script>window.onload = caricaFattura;</script>
