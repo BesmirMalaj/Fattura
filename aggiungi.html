@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aggiungi Prodotto</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <h2>Aggiungi un nuovo prodotto</h2>
+    <form id="form-prodotti">
+        <input type="text" id="nome-prodotto" placeholder="Nome prodotto" required />
+        <input type="number" id="prezzo-prodotto" placeholder="Prezzo" step="0.01" required />
+        <button type="submit">Salva prodotto</button>
+    </form>
+    <a href="index.html">🔙 Torna alla lista</a>
+    <script>
+        document.getElementById('form-prodotti').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const nome = document.getElementById('nome-prodotto').value.trim();
+            const prezzo = parseFloat(document.getElementById('prezzo-prodotto').value);
+            if (nome && !isNaN(prezzo)) {
+                salvaProdottoPersonalizzato(nome, prezzo);
+                window.location.href = 'index.html'; // Torna alla lista prodotti
+            }
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>

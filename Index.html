@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prodotti disponibili</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Gestione Prodotti</h1>
+  <a href="aggiungi.html">➕ Aggiungi nuovo prodotto</a>
+
+  <div class="contenitore-main">
+    <div class="colonna" id="sezione-prodotti">
+      <h2>Lista Prodotti</h2>
+      <div id="lista-prodotti" class="prodotti-disponibili"></div>
+    </div>
+
+    <div class="colonna" id="sezione-carrello">
+      <h2>Carrello</h2>
+      <a href="fattura.html"> <h2>🧾 Shiko Fattura</h2></a>
+      <div id="carrello"></div>
+      <p><strong>Totale:</strong> €<span id="totale-carrello">0.00</span></p>
+      
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

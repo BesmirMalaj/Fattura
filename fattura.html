@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fattura</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Intestazione Azienda (opzionale) -->
+    <div class="dati-azienda">
+        <h1>Nome Azienda S.R.L.</h1>
+        <p>Indirizzo: Via Roma, 123 - Città</p>
+        <p>P.IVA: 12345678901</p>
+    </div>
+
+    <h1>🧾 Fattura</h1>
+    <div class="azioni">
+        <a href="index.html">🔙 Torna alla home </a>
+    </div>
+    <div class="contenitore-main">
+        <div class="colonna">
+            <div id="lista-fattura"></div>
+            <p><strong>Totale:</strong> €<span id="totale-fattura">0.00</span></p>
+
+            <div class="azioni">
+                <button onclick="stampaFattura()">🖨️ Stampa</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="script.js"></script>
+    <script>window.onload = caricaFattura;</script>
+</body>
+
+</html>
